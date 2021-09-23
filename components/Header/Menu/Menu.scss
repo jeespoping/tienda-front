@@ -24,14 +24,13 @@
       }
 
       .item {
-        color: $font-light;
+        color: $font-light !important;
         border-radius: 0 !important;
 
         &:hover {
           color: $font-light;
           background-color: $background-dark-absolute;
-
-          &::before {
+          &:before {
             background-color: $background-dark-absolute;
           }
         }
