@@ -1,10 +1,4 @@
-import {
-  Container,
-  Menu as Menuweb,
-  Grid,
-  Icon,
-  Label,
-} from "semantic-ui-react";
+import { Container, Menu as Menuweb, Grid, Icon } from "semantic-ui-react";
 
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
