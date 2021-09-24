@@ -8,8 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 
 export default function LoginForm({ showRegisterForm, onCloseModal }) {
   const [loading, setLoading] = useState(false);
-  const auth = useAuth();
-  console.log(auth);
+  const { login } = useAuth();
 
   const formik = useFormik({
     initialValues: initialValues(),
@@ -18,7 +17,7 @@ export default function LoginForm({ showRegisterForm, onCloseModal }) {
       setLoading(true);
       const response = await loginApi(formData);
       if (response?.jwt) {
-        console.log("Login Ok");
+        login(response.jwt);
         onCloseModal();
       } else {
         toast.error("El email o la contraseña son incorrectos");
