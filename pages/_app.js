@@ -5,10 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
 import { useEffect, useMemo, useState } from "react";
 import jwtDecode from "jwt-decode";
-import { setToken } from "../api/token";
+import { getToken, setToken } from "../api/token";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
+  const [reloadUser, setReloadUser] = useState(false);
 
   useEffect(() => {
     const token = getToken();
@@ -20,7 +21,8 @@ export default function MyApp({ Component, pageProps }) {
     } else {
       setAuth(null);
     }
-  }, []);
+    setReloadUser(false);
+  }, [reloadUser]);
 
   const login = (token) => {
     setToken(token);
@@ -35,7 +37,7 @@ export default function MyApp({ Component, pageProps }) {
       auth,
       login,
       logout: () => null,
-      setReloadUser: () => null,
+      setReloadUser,
     }),
     [auth]
   );
