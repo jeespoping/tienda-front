@@ -1,15 +1,23 @@
 import { Container, Menu as Menuweb, Grid, Icon } from "semantic-ui-react";
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Auth from "../../Auth";
 import useAuth from "../../../hooks/useAuth";
+import { getMeApi } from "../../../api/user";
 
 export default function Menu() {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("Iniciar sesion");
-
+  const [user, setUser] = useState(undefined);
   const { auth, logout } = useAuth();
+
+  useEffect(() => {
+    (async () => {
+      const response = await getMeApi(logout);
+      setUser(response);
+    })();
+  }, [auth]);
 
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
