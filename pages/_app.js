@@ -5,11 +5,13 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
 import { useEffect, useMemo, useState } from "react";
 import jwtDecode from "jwt-decode";
-import { getToken, setToken } from "../api/token";
+import { useRouter } from "next/router";
+import { getToken, setToken, removeToken } from "../api/token";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
   const [reloadUser, setReloadUser] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const token = getToken();
@@ -32,11 +34,19 @@ export default function MyApp({ Component, pageProps }) {
     });
   };
 
+  const logout = () => {
+    if (auth) {
+      removeToken();
+      setAuth(null);
+      router.push("/");
+    }
+  };
+
   const authData = useMemo(
     () => ({
       auth,
       login,
-      logout: () => null,
+      logout,
       setReloadUser,
     }),
     [auth]

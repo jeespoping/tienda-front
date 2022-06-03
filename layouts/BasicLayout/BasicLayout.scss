@@ -1,6 +1,6 @@
 .basic-layout {
   min-height: 100vh;
-  background-image: url("https://jeespoping-game.s3.us-east-2.amazonaws.com/static/bg-web.jpg");
+  background-image: url("https://jeespoping-ecomerce.s3.us-east-2.amazonaws.com/static/bg-web.jpg");
   background-size: cover;
   background-position: center;
   .content {
@@ -10,9 +10,5 @@
     -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 }
