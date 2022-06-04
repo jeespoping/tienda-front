@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { updateNameApi } from "../../../api/user";
 
-export default function ChangeNameForm({ user, logout }) {
+export default function ChangeNameForm({ user, logout, setReloadUser }) {
   const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
@@ -17,6 +17,7 @@ export default function ChangeNameForm({ user, logout }) {
       if (!response) {
         toast.error("Error al actualizar el nomre y apellidos");
       } else {
+        setReloadUser(true);
         console.log("Nombre actualizado");
       }
       setLoading(false);
@@ -26,7 +27,7 @@ export default function ChangeNameForm({ user, logout }) {
   return (
     <div className="change-name-form">
       <h4>Cambia tu nombre y apellidos</h4>
-      <Form onsubmit={formik.handleSubmit}>
+      <Form onSubmit={formik.handleSubmit}>
         <Form.Group widths="equal">
           <Form.Input
             value={formik.values.name}
