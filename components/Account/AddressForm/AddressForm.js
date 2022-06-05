@@ -1,16 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import useAuth from "../../../hooks/useAuth";
+import { createAddresApi } from "../../../api/address";
+import { toast } from "react-toastify";
 
-export default function AddressForm() {
+export default function AddressForm({ setshowModal }) {
+  const [loading, setloading] = useState(false);
+  const { auth, logout } = useAuth();
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
-    onSubmit: (formValue) => {
-      console.log(formValue);
+    onSubmit: (formData) => {
+      createAddres(formData);
     },
   });
+
+  const createAddres = async (formData) => {
+    setloading(true);
+    const formDataTemp = {
+      ...formData,
+      user: auth.idUser,
+    };
+    const response = await createAddresApi(formDataTemp, logout);
+    if (!response) {
+      toast.warning("Error al crear la dirección");
+      setloading(false);
+    } else {
+      formik.resetForm();
+      setloading(false);
+      setshowModal(false);
+    }
+    setloading(false);
+  };
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -85,7 +109,7 @@ export default function AddressForm() {
         />
       </Form.Group>
       <div className="actions">
-        <Button className="submit" type="submit">
+        <Button loading={loading} className="submit" type="submit">
           Crear dirección
         </Button>
       </div>
