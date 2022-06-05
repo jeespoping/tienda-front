@@ -9,7 +9,7 @@ export async function getLastGamesApi(limit) {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.log(erro);
+    console.log(error);
     return null;
   }
 }
