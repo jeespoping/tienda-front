@@ -1,6 +1,7 @@
 import { Container, Menu as Menuweb, Grid, Icon } from "semantic-ui-react";
 import Link from "next/link";
 import BasicModal from "../../Modal/BasicModal";
+import { map } from "lodash";
 import { useState, useEffect } from "react";
 import Auth from "../../Auth";
 import useAuth from "../../../hooks/useAuth";
@@ -36,7 +37,7 @@ export default function Menu() {
       <Container>
         <Grid>
           <Grid.Column width={6} className="menu__left">
-            <MenuPlatforms />
+            <MenuPlatforms platforms={platForms} />
           </Grid.Column>
           <Grid.Column width={10} className="menu__right">
             {user !== undefined && (
@@ -61,18 +62,16 @@ export default function Menu() {
   );
 }
 
-function MenuPlatforms() {
+function MenuPlatforms({ platforms }) {
   return (
     <Menuweb>
-      <Link href="/play-station">
-        <Menuweb.Item as="a">PlayStation</Menuweb.Item>
-      </Link>
-      <Link href="/xbox">
-        <Menuweb.Item as="a">Xbox</Menuweb.Item>
-      </Link>
-      <Link href="/switch">
-        <Menuweb.Item as="a">Switch</Menuweb.Item>
-      </Link>
+      {map(platforms, (platform) => (
+        <Link href={`games/${platform.url}`} key={platform._id}>
+          <Menuweb.Item as="a" name={platform.url}>
+            {platform.title}
+          </Menuweb.Item>
+        </Link>
+      ))}
     </Menuweb>
   );
 }
