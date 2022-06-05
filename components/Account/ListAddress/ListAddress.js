@@ -4,7 +4,11 @@ import { map, size } from "lodash";
 import { deleteAddressApi, getAddressesApi } from "../../../api/address";
 import useAuth from "../../../hooks/useAuth";
 
-export default function ListAddress({ reloadAddress, setReloadAddress }) {
+export default function ListAddress({
+  reloadAddress,
+  setReloadAddress,
+  openModal,
+}) {
   const [addresses, setAddresses] = useState(null);
   const { auth, logout } = useAuth();
   useEffect(() => {
@@ -29,6 +33,7 @@ export default function ListAddress({ reloadAddress, setReloadAddress }) {
                 address={address}
                 logout={logout}
                 setReloadAddress={setReloadAddress}
+                openModal={openModal}
               />
             </Grid.Column>
           ))}
@@ -38,7 +43,7 @@ export default function ListAddress({ reloadAddress, setReloadAddress }) {
   );
 }
 
-function Address({ address, logout, setReloadAddress }) {
+function Address({ address, logout, setReloadAddress, openModal }) {
   const [loading, setLoading] = useState(false);
 
   const deleteAddress = async () => {
@@ -59,7 +64,12 @@ function Address({ address, logout, setReloadAddress }) {
       <p>{address.phone}</p>
 
       <div className="actions">
-        <Button primary>Editar</Button>
+        <Button
+          onClick={() => openModal(`Editar : ${address.title}`, address)}
+          primary
+        >
+          Editar
+        </Button>
         <Button loading={loading} onClick={deleteAddress}>
           Eliminar
         </Button>
