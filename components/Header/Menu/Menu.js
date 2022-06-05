@@ -5,8 +5,10 @@ import { useState, useEffect } from "react";
 import Auth from "../../Auth";
 import useAuth from "../../../hooks/useAuth";
 import { getMeApi } from "../../../api/user";
+import { getPlatformsApi } from "../../../api/platform";
 
 export default function Menu() {
+  const [platForms, setplatForms] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("Iniciar sesion");
   const [user, setUser] = useState(undefined);
@@ -18,6 +20,13 @@ export default function Menu() {
       setUser(response);
     })();
   }, [auth]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getPlatformsApi();
+      setplatForms(response || []);
+    })();
+  }, []);
 
   const onShowModal = () => setShowModal(true);
   const onCloseModal = () => setShowModal(false);
