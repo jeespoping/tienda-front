@@ -8,6 +8,7 @@ import ChangeNameForm from "../components/Account/ChangeNameForm";
 import ChangeEmailForm from "../components/Account/ChangeEmailForm";
 import ChangePassword from "../components/Account/ChangePassword";
 import BasicModal from "../components/Modal/BasicModal";
+import AddressForm from "../components/Account/AddressForm/AddressForm";
 
 export default function Account() {
   const [user, setUser] = useState(undefined);
@@ -68,7 +69,7 @@ function Addresses() {
 
   const openModal = (title) => {
     setTitleModal(title);
-    setFormModal(<h1>Nueva direccion</h1>);
+    setFormModal(<AddressForm />);
     setshowModal(true);
   };
 
@@ -81,7 +82,7 @@ function Addresses() {
       <div className="data">Lista de direcciones</div>
 
       <BasicModal show={showModal} setShow={setshowModal} title={titleModal}>
-        <p>Formulario Add - Update</p>
+        {formModal}
       </BasicModal>
     </div>
   );
