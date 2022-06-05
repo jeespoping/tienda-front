@@ -3,7 +3,7 @@ import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import useAuth from "../../../hooks/useAuth";
-import { createAddresApi } from "../../../api/address";
+import { createAddresApi, updateAddressApi } from "../../../api/address";
 import { toast } from "react-toastify";
 
 export default function AddressForm({
@@ -43,7 +43,24 @@ export default function AddressForm({
   };
 
   const updateAddress = async (formData) => {
-    console.log("Actualizando direccion");
+    setloading(true);
+
+    const formDataTemp = {
+      ...formData,
+      user: auth.idUser,
+    };
+
+    const response = await updateAddressApi(address._id, formDataTemp, logout);
+    if (!response) {
+      toast.warning("Error al actualizar la dirección");
+      setloading(false);
+    } else {
+      formik.resetForm();
+      setReloadAddress(true);
+      setloading(false);
+      setshowModal(false);
+    }
+    setloading(false);
   };
 
   return (
