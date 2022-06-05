@@ -66,7 +66,7 @@ function MenuPlatforms({ platforms }) {
   return (
     <Menuweb>
       {map(platforms, (platform) => (
-        <Link href={`games/${platform.url}`} key={platform._id}>
+        <Link href={`/games/${platform.url}`} key={platform._id}>
           <Menuweb.Item as="a" name={platform.url}>
             {platform.title}
           </Menuweb.Item>

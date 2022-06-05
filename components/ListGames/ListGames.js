@@ -30,7 +30,7 @@ export default function ListGames({ games }) {
       <Grid>
         <Grid.Row columns={getColumnsRender()}>
           {map(games, (game) => (
-            <Game game={game} />
+            <Game key={game.id} game={game} />
           ))}
         </Grid.Row>
       </Grid>
