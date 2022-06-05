@@ -6,7 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import { createAddresApi } from "../../../api/address";
 import { toast } from "react-toastify";
 
-export default function AddressForm({ setshowModal }) {
+export default function AddressForm({ setshowModal, setReloadAddress }) {
   const [loading, setloading] = useState(false);
   const { auth, logout } = useAuth();
 
@@ -30,6 +30,7 @@ export default function AddressForm({ setshowModal }) {
       setloading(false);
     } else {
       formik.resetForm();
+      setReloadAddress(true);
       setloading(false);
       setshowModal(false);
     }
