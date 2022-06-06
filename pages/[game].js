@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import BasicLayout from "../layouts/BasicLayout";
 import { getGameByUrlApi } from "../api/game";
+import HeaderGame from "../components/Game/HeaderHame";
 
 export default function Game() {
   const [game, setGame] = useState(null);
@@ -14,5 +15,12 @@ export default function Game() {
     })();
   }, [query]);
 
-  return <BasicLayout>Game</BasicLayout>;
+  if (!game) return null;
+
+  return (
+    <BasicLayout>
+      <HeaderGame game={game} />
+      <p>Tabs Game</p>
+    </BasicLayout>
+  );
 }
