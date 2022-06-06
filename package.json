@@ -13,6 +13,7 @@
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
+    "moment": "^2.29.3",
     "next": "11.1.2",
     "node-sass": "4.14.1",
     "query-string": "^7.1.1",
