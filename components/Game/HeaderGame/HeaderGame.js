@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Grid, Image, Icon, Button } from "semantic-ui-react";
 import { size } from "lodash";
 import classNames from "classnames";
-import { addFavoriteApi, isFavoriteApi } from "../../../api/favorite";
+import {
+  addFavoriteApi,
+  deleteFavoriteApi,
+  isFavoriteApi,
+} from "../../../api/favorite";
 import useAuth from "../../../hooks/useAuth";
 
 export default function HeaderGame({ game }) {
@@ -42,8 +46,11 @@ function Info({ game }) {
     }
   };
 
-  const deleteFavorite = () => {
-    console.log("Eliminar de favorito");
+  const deleteFavorite = async () => {
+    if (auth) {
+      await deleteFavoriteApi(auth.idUser, game.id, logout);
+      setreloadFavorite(true);
+    }
   };
 
   return (
