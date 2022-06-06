@@ -44,7 +44,7 @@ export default function Platform() {
     <BasicLayagout className="platform">
       {!games && <Loader active>Cargando juegos</Loader>}
       {games && size(games) === 0 && (
-        <div>
+        <div className="data__not-found">
           <h3>No hay Juegos</h3>
         </div>
       )}
