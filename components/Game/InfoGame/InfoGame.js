@@ -1,5 +1,6 @@
 import React from "react";
 import ReactPlayer from "react-player/lazy";
+import CarrouselScreenshots from "../CarrouselScreenshots/CarrouselScreenshots";
 
 export default function InfoGame({ game }) {
   return (
@@ -9,6 +10,7 @@ export default function InfoGame({ game }) {
         className="info-game__video"
         url={game.video}
       />
+      <CarrouselScreenshots title={game.title} screenshots={game.screenshots} />
     </div>
   );
 }
