@@ -13,6 +13,8 @@ export default function FormPayment({ address, products }) {
   const elements = useElements();
   const stripe = useStripe();
   const { auth, logout } = useAuth();
+  const { removeAllProductCart } = useCart();
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +33,9 @@ export default function FormPayment({ address, products }) {
         logout
       );
       if (size(response) > 0) {
-        toast.success("PEdido completado");
+        toast.success("Pedido completado");
+        removeAllProductCart();
+        router.push("orders");
       } else {
         toast.error("Error al realizar el pedido");
       }

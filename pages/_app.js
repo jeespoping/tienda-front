@@ -15,6 +15,7 @@ import {
   addProductCart,
   countProductsCart,
   removeProductCart,
+  removeAllProductsCart,
 } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
@@ -89,6 +90,7 @@ export default function MyApp({ Component, pageProps }) {
       addProductCart: (product) => addProduct(product),
       getProductsCart: getProductsCart,
       removeProductCart: (product) => removeProduct(product),
+      removeAllProductCart: removeAllProductsCart,
     }),
     [totalPrductCart]
   );
