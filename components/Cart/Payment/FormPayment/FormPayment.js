@@ -5,16 +5,32 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { size } from "lodash";
 import useAuth from "../../../../hooks/useAuth";
 import useCart from "../../../../hooks/useCart";
+import { toast } from "react-toastify";
 
 export default function FormPayment({ address, products }) {
-  const handleSubmit = (event) => {
-    event.preventDefault;
-    console.log("Realizando pago..");
+  const [loading, setLoading] = useState(false);
+  const elements = useElements();
+  const stripe = useStripe();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    if (!stripe || !elements) return;
+    const cardElement = elements.getElement(CardElement);
+    const result = await stripe.createToken(cardElement);
+    if (result.error) {
+      toast.error(result.error.message);
+    } else {
+      console.log(result);
+    }
+    setLoading(false);
   };
   return (
     <form className="form-payment" onSubmit={handleSubmit}>
       <CardElement />
-      <Button type="submit">Pagar</Button>
+      <Button disabled={!stripe} loading={loading} type="submit">
+        Pagar
+      </Button>
     </form>
   );
 }
