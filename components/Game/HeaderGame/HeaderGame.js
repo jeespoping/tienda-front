@@ -8,6 +8,7 @@ import {
   isFavoriteApi,
 } from "../../../api/favorite";
 import useAuth from "../../../hooks/useAuth";
+import useCart from "../../../hooks/useCart";
 
 export default function HeaderGame({ game }) {
   const { poster, title } = game;
@@ -25,10 +26,11 @@ export default function HeaderGame({ game }) {
 }
 
 function Info({ game }) {
-  const { title, summary, price, discount } = game;
+  const { title, summary, price, discount, url } = game;
   const [isFavorites, setIsFavorites] = useState(false);
   const [reloadFavorite, setreloadFavorite] = useState(false);
   const { auth, logout } = useAuth();
+  const { addProductCart } = useCart();
 
   useEffect(() => {
     (async () => {

@@ -1,6 +1,6 @@
 import "../scss/global.scss";
 import "semantic-ui-css/semantic.min.css";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../context/AuthContext";
 import CartContext from "../context/CartContext";
@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { getToken, setToken, removeToken } from "../api/token";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getProductsCart } from "../api/cart";
+import { getProductsCart, addProductCart } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
@@ -56,10 +56,19 @@ export default function MyApp({ Component, pageProps }) {
     [auth]
   );
 
+  const addProduct = (product) => {
+    const token = getToken();
+    if (token) {
+      addProductCart(product);
+    } else {
+      toast.warning("Para comprar un juego tienes que iniciar sesión");
+    }
+  };
+
   const cartData = useMemo(
     () => ({
       productsCart: 0,
-      addProductCart: () => null,
+      addProductCart: (product) => addProduct(product),
       getProductsCart: getProductsCart,
       removeProductCart: () => null,
     }),
