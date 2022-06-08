@@ -10,11 +10,17 @@ import { useRouter } from "next/router";
 import { getToken, setToken, removeToken } from "../api/token";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getProductsCart, addProductCart } from "../api/cart";
+import {
+  getProductsCart,
+  addProductCart,
+  countProductsCart,
+} from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
+  const [totalPrductCart, setTotalPrductCart] = useState(0);
   const [reloadUser, setReloadUser] = useState(false);
+  const [reloadCart, setReloadCart] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,6 +35,11 @@ export default function MyApp({ Component, pageProps }) {
     }
     setReloadUser(false);
   }, [reloadUser]);
+
+  useEffect(() => {
+    setTotalPrductCart(countProductsCart());
+    setReloadCart(false);
+  }, [reloadCart, auth]);
 
   const login = (token) => {
     setToken(token);
@@ -60,6 +71,7 @@ export default function MyApp({ Component, pageProps }) {
     const token = getToken();
     if (token) {
       addProductCart(product);
+      setReloadUser(true);
     } else {
       toast.warning("Para comprar un juego tienes que iniciar sesión");
     }
@@ -67,12 +79,12 @@ export default function MyApp({ Component, pageProps }) {
 
   const cartData = useMemo(
     () => ({
-      productsCart: 0,
+      productsCart: totalPrductCart,
       addProductCart: (product) => addProduct(product),
       getProductsCart: getProductsCart,
       removeProductCart: () => null,
     }),
-    []
+    [totalPrductCart]
   );
 
   if (auth === undefined) return null;
