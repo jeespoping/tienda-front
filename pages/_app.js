@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { getToken, setToken, removeToken } from "../api/token";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getProductsCart } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
   const [auth, setAuth] = useState(undefined);
@@ -59,7 +60,7 @@ export default function MyApp({ Component, pageProps }) {
     () => ({
       productsCart: 0,
       addProductCart: () => null,
-      getProductsCart: () => null,
+      getProductsCart: getProductsCart,
       removeProductCart: () => null,
     }),
     []
