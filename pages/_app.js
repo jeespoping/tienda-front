@@ -14,6 +14,7 @@ import {
   getProductsCart,
   addProductCart,
   countProductsCart,
+  removeProductCart,
 } from "../api/cart";
 
 export default function MyApp({ Component, pageProps }) {
@@ -77,12 +78,17 @@ export default function MyApp({ Component, pageProps }) {
     }
   };
 
+  const removeProduct = (product) => {
+    removeProductCart(product);
+    setReloadUser(true);
+  };
+
   const cartData = useMemo(
     () => ({
       productsCart: totalPrductCart,
       addProductCart: (product) => addProduct(product),
       getProductsCart: getProductsCart,
-      removeProductCart: () => null,
+      removeProductCart: (product) => removeProduct(product),
     }),
     [totalPrductCart]
   );
