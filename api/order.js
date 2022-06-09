@@ -3,7 +3,7 @@ import { authFetch } from "../utils/fetch";
 
 export async function getOrdersApi(idUser, logout) {
   try {
-    const url = `${BASE_PATH}/orders?_sort=createAt:des&user=${idUser}`;
+    const url = `${BASE_PATH}/orders?_sort=createAt:desc&user=${idUser}`;
     const result = authFetch(url, null, logout);
     return result;
   } catch (error) {
