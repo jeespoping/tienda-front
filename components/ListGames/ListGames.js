@@ -4,12 +4,13 @@ import Link from "next/link";
 import { map } from "lodash";
 import useWindowSize from "../../hooks/useWindowSize";
 import {
-  breakpointUpLg,
-  breakpointUpMd,
   breakpointUpSm,
+  breakpointUpMd,
+  breakpointUpLg,
 } from "../../utils/breakpoints";
 
-export default function ListGames({ games }) {
+export default function ListGames(props) {
+  const { games } = props;
   const { width } = useWindowSize();
 
   const getColumnsRender = () => {
@@ -30,7 +31,7 @@ export default function ListGames({ games }) {
       <Grid>
         <Grid.Row columns={getColumnsRender()}>
           {map(games, (game) => (
-            <Game key={game.id} game={game} />
+            <Game game={game} />
           ))}
         </Grid.Row>
       </Grid>
@@ -38,20 +39,22 @@ export default function ListGames({ games }) {
   );
 }
 
-function Game({ game }) {
+function Game(props) {
+  const { game } = props;
+
   return (
     <Grid.Column className="list-games__game">
       <Link href={`/${game.url}`}>
         <a>
           <div className="list-games__game-poster">
-            <Image fluid src={game.poster.url} alt={game.title} />
+            <Image src={game.poster.url} alt={game.title} />
             <div className="list-games__game-poster-info">
               {game.discount ? (
                 <span className="discount">-{game.discount}%</span>
               ) : (
                 <span />
               )}
-              <span className="price">{game.price}USD</span>
+              <span className="price">{game.price}€</span>
             </div>
           </div>
           <h2>{game.title}</h2>
