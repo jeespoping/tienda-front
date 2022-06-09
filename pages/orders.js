@@ -20,11 +20,11 @@ export default function orders() {
   return (
     <BasicLayout className="orders">
       <div className="orders__block">
-        <div className="title">Mis Pedidos</div>
+        <div className="title">Mis pedidos</div>
         <div className="data">
           {size(orders) === 0 ? (
             <h2 style={{ textAlign: "center" }}>
-              Todavia no has realizado ninguna compra
+              Todavía no has realizado ninguna compra
             </h2>
           ) : (
             <OrderList orders={orders} />
