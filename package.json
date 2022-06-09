@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "next export",
+    "export": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -29,9 +29,5 @@
     "semantic-ui-react": "^2.0.3",
     "slick-carousel": "^1.8.1",
     "yup": "^0.32.9"
-  },
-  "devDependencies": {
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2"
   }
 }
