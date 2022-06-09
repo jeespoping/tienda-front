@@ -8,6 +8,8 @@ import BasicModal from "../../Modal/BasicModal";
 export default function Order({ order }) {
   const { addressShipping, createdAt, game, totalPayment } = order;
   const { title, poster, url } = game;
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <div className="order">
@@ -28,9 +30,37 @@ export default function Order({ order }) {
           <p className="order__other-date">
             {moment(createdAt).format("L")} - {moment(createdAt).format("LT")}
           </p>
-          <Icon name="eye" circular link onClick={() => console.log("modal")} />
+          <Icon name="eye" circular link onClick={() => setShowModal(true)} />
         </div>
       </div>
+      <AddressModal
+        title={title}
+        addressShipping={addressShipping}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </>
+  );
+}
+
+function AddressModal({ title, addressShipping, showModal, setShowModal }) {
+  return (
+    <BasicModal
+      show={showModal}
+      setShow={setShowModal}
+      size="tiny"
+      title={title}
+    >
+      <h3>El pedido se ha enviado a la siguiente direccion</h3>
+      <div>
+        <p>{addressShipping.name}</p>
+        <p>{addressShipping.address}</p>
+        <p>
+          {addressShipping.state}, {addressShipping.city}{" "}
+          {addressShipping.postalCode}
+        </p>
+        <p>{addressShipping.phone}</p>
+      </div>
+    </BasicModal>
   );
 }
