@@ -44,22 +44,22 @@ function Game(props) {
 
   return (
     <Grid.Column className="list-games__game">
-      <Link href={`/${game.url}`}>
-        <a>
-          <div className="list-games__game-poster">
-            <Image src={game.poster.url} alt={game.title} />
-            <div className="list-games__game-poster-info">
-              {game.discount ? (
-                <span className="discount">-{game.discount}%</span>
-              ) : (
-                <span />
-              )}
-              <span className="price">{game.price}€</span>
-            </div>
+      <a>
+        <div className="list-games__game-poster">
+          <Link href={`/${game.url}`}>
+            <Image as="a" src={game.poster.url} alt={game.title} />
+          </Link>
+          <div className="list-games__game-poster-info">
+            {game.discount ? (
+              <span className="discount">-{game.discount}%</span>
+            ) : (
+              <span />
+            )}
+            <span className="price">{game.price}€</span>
           </div>
-          <h2>{game.title}</h2>
-        </a>
-      </Link>
+        </div>
+        <h2>{game.title}</h2>
+      </a>
     </Grid.Column>
   );
 }

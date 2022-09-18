@@ -10,8 +10,9 @@ export default function Pagination({ totalGames, page, limitPerPage }) {
 
   const goToPage = (newPage) => {
     urlParse.query.page = newPage;
-    const url = queryString.stringifyUrl(urlParse);
-    router.push(url);
+    let myImage = new Image();
+    myImage.src = objectURL;
+    document.getElementById("myImg").appendChild(myImage);
   };
 
   return (
