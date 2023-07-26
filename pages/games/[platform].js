@@ -7,7 +7,7 @@ import { getGamesPlatformApi, getTotalGamesPlatformApi } from "../../api/game";
 import ListGames from "../../components/ListGames";
 import Pagination from "../../components/Pagination";
 
-const limitPerPage = 20;
+const limitPerPage = 10;
 
 export default function Platform() {
   const { query } = useRouter();

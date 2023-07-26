@@ -7,6 +7,11 @@
   
       img {
         height: 270px;
+
+        &:hover{
+          cursor: pointer;
+          opacity: 0.98;
+        }
       }
   
       h2 {
